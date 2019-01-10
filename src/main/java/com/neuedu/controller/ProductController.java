@@ -15,7 +15,10 @@ public class ProductController {
     IProductService productService;
     @RequestMapping(value = "/product/{pageNo}/{pageSize}")
     public ServerResponse<Product> find(@PathVariable Integer pageNo,@PathVariable Integer pageSize){
-        return productService.findAll(pageNo,pageSize);
+        return productService.findBypage(pageNo,pageSize);
     }
-
+    @RequestMapping(value = "/product")
+    public ServerResponse<Product> find(){
+        return productService.findAll();
+    }
 }

@@ -5,6 +5,7 @@ import com.neuedu.pojo.Product;
 
 public interface IProductService {
 
-    ServerResponse<Product> findAll(int pageNo,int pageSize);
+    ServerResponse<Product> findAll();
+    ServerResponse<Product> findBypage(int pageNo,int pageSize);
 
 }
