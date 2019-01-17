@@ -8,14 +8,17 @@ import java.util.Date;
  * */
 public class Person {
    private int  age=20;
-    private  static  Person mPerson;
+    private  volatile static  Person mPerson;
      private Person(){}
 
-     public synchronized   static  Person getInstance(){
-
-          if(mPerson==null){
-              mPerson=new Person();
-          }
+     public    static  Person getInstance(){
+         if(mPerson==null){
+             synchronized (Person.class){
+                 if(mPerson==null){
+                     mPerson=new Person();
+                 }
+             }
+         }
           return mPerson;
      }
 
