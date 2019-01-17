@@ -3,16 +3,13 @@ package com.neuedu.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-@Aspect
 @Component
-public class RedisAspect {
-    @Pointcut("execution(public * com.neuedu.service.impl.ProductServiceImpl.findAll())")
+@Aspect
+public class CacheAspect {
+    @Pointcut("execution( public * com.neuedu.service.impl.ProductServiceImpl.findAll())")
     public void cache(){}
     @Around("cache()")
     public Object around(ProceedingJoinPoint joinPoint){
@@ -27,5 +24,4 @@ public class RedisAspect {
         }
         return o;
     }
-
 }
