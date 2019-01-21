@@ -28,7 +28,4 @@ public class RedisPool {
        return new JedisPool(jedisPoolConfig,redisProperties.getIp(),redisProperties.getPort(),2000,"Qinfo20180507@",0);
     }
 
-
-
-
 }

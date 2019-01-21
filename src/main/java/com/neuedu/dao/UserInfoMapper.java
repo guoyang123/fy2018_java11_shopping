@@ -46,4 +46,6 @@ public interface UserInfoMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(UserInfo record);
+
+    UserInfo getUserInfoByToken(String token);
 }

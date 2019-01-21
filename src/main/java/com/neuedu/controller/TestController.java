@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
+@RequestMapping("/portal")
 public class TestController {
 
 
@@ -20,7 +23,12 @@ public class TestController {
     UserInfoMapper userInfoMapper;
 
     @RequestMapping(value = "/user/{userid}")
-    public ServerResponse<UserInfo> findUser(@PathVariable Integer userid){
+    public ServerResponse<UserInfo> findUser(@PathVariable Integer userid, HttpSession session){
+
+
+
+
+
 
         UserInfo u= userInfoMapper.selectByPrimaryKey(userid);
 
