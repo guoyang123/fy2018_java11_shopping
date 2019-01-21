@@ -1,10 +1,10 @@
 package com.neuedu.controller;
 
-import com.neuedu.common.RedisPool;
-import com.neuedu.common.RedisProperties;
 import com.neuedu.common.ServerResponse;
 import com.neuedu.dao.UserInfoMapper;
 import com.neuedu.pojo.UserInfo;
+import com.neuedu.redis.RedisApi;
+import com.neuedu.redis.RedisProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +22,16 @@ public class TestController {
     @Autowired
     UserInfoMapper userInfoMapper;
 
+    @Autowired
+    RedisProperties redisProperties;
+
+
+
     @RequestMapping(value = "/user/{userid}")
     public ServerResponse<UserInfo> findUser(@PathVariable Integer userid, HttpSession session){
 
 
-
+        System.out.println(redisProperties.getMaxIdle());
 
 
 
@@ -39,16 +44,32 @@ public class TestController {
         }
     }
 
+
+
     @Autowired
-    RedisProperties redisProperties;
-    @RequestMapping(value = "/config")
-    public String testRedisConfig(){
-        return  redisProperties.getMaxIdle()+"";
+    private  JedisPool jedisPool;
+
+    @RequestMapping(value = "/redis")
+    public  String  getJedis(){
+
+       Jedis jedis= jedisPool.getResource();
+       String value= jedis.set("root","root1");
+
+       jedisPool.returnResource(jedis);
+
+
+       return value;
     }
+
     @Autowired
-    JedisPool jedisPool;
-    @RequestMapping(value = "/pool")
-    public String getJedis(){
-        return  jedisPool.getResource().toString();
+    private RedisApi redisApi;
+    @RequestMapping(value = "/key/{key}")
+    public  String  getkey(@PathVariable("key") String key){
+
+     String value= redisApi.get(key);
+
+
+        return value;
     }
+
 }

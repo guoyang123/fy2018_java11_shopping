@@ -1,31 +1,40 @@
-package com.neuedu.common;
+package com.neuedu.redis;
 
 
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisShardInfo;
 
 @Component
 @Configuration
 public class RedisPool {
+
     @Autowired
-    private   RedisProperties redisProperties;
+   RedisProperties redisProperties;
+
     @Bean
-    public  JedisPool jedisPool(){
+    public JedisPool jedisPool(){
+
+
         JedisPoolConfig jedisPoolConfig=new JedisPoolConfig();
+
         jedisPoolConfig.setMaxTotal(redisProperties.getMaxTotal());
         jedisPoolConfig.setMaxIdle(redisProperties.getMaxIdle());
         jedisPoolConfig.setMinIdle(redisProperties.getMinIdle());
-        jedisPoolConfig.setTestOnReturn(redisProperties.getTestReturn());
-        jedisPoolConfig.setTestOnBorrow(redisProperties.getTestBorrow());
+        jedisPoolConfig.setTestOnBorrow(redisProperties.isTestBorrow());
+        jedisPoolConfig.setTestOnReturn(redisProperties.isTestReturn());
+       //当连接池中的连接消耗完毕，true:等待连接 false:抛出异常
         jedisPoolConfig.setBlockWhenExhausted(true);
 
-       return new JedisPool(jedisPoolConfig,redisProperties.getIp(),redisProperties.getPort(),2000,"Qinfo20180507@",0);
+
+        return new JedisPool(jedisPoolConfig, redisProperties.getRedisIp(), redisProperties.getRedisPort(), 2000, redisProperties.getRedisPassword(),
+        0);
+
     }
+
 
 }
