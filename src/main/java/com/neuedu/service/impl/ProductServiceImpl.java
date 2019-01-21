@@ -31,6 +31,9 @@ public class ProductServiceImpl implements IProductService {
         PageHelper.startPage(1,10);
         List<Product> productList= productMapper.selectAll();// limit (pageno-1 )*pageSize,pageSize
         PageInfo pageInfo=new PageInfo(productList);
+
+       // System.out.println(4/0);
+
         return  ServerResponse.createServerResponseBySuccess(null,pageInfo);
     }
 }

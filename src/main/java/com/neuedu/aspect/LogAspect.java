@@ -1,9 +1,7 @@
 package com.neuedu.aspect;
 
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,25 +11,59 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class LogAspect {
 
-
-
-    //定义切入点表达式
-    @Pointcut("execution(public * com.neuedu.service.impl.UserServiceImpl.*(..))")
-    public  void   test(){}
-
-
+    //定义切入点
+    @Pointcut("execution(public * com.neuedu.service.impl.ProductServiceImpl.*(..))")
+    public  void   pointcut(){}
 
     //通知: 5中类型
 
-    @Before("test()")
+    /**
+     *  before:前置通知
+     *  after:
+     *  afterReturning
+     *  afterthrowing
+     *
+     *  around
+     *
+     * */
+   @Before("pointcut()")
     public   void   before(){
         System.out.println("===============before======");
     }
 
-    @After("test()")
+    @After("pointcut()")
     public   void   after(){
         System.out.println("===============after======");
     }
+
+    @AfterThrowing("pointcut()")
+    public   void   afterThrowing(){
+        System.out.println("===============afterThrowing======");
+    }
+    @AfterReturning("pointcut()")
+    public   void   AfterReturning(){
+        System.out.println("===============AfterReturning======");
+    }
+
+   /* @Around("pointcut()")
+     public  Object arround(ProceedingJoinPoint proceedingJoinPoint){
+
+        Object o=null;
+        try {
+            System.out.println("=====arround===before=====");
+            //执行切入点匹配的方法
+            o=proceedingJoinPoint.proceed();
+            System.out.println("=====arround===after=====");
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            System.out.println("=====arround===throwing=====");
+        }
+        System.out.println("=====arround===afterreturning=====");
+
+        return o;
+    }*/
+
+
 
 
 }
