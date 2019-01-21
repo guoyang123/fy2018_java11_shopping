@@ -16,7 +16,7 @@ public class LogAspect {
 
 
     //定义切入点表达式
-    @Pointcut("execution(* com.neuedu.service.impl.UserServiceImpl.*(..))")
+    @Pointcut("execution(public * com.neuedu.service.impl.UserServiceImpl.*(..))")
     public  void   test(){}
 
 
