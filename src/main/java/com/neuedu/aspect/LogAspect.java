@@ -17,20 +17,21 @@ public class LogAspect {
 
     //定义切入点表达式
     @Pointcut("execution(* com.neuedu.service.impl.UserServiceImpl.*(..))")
-    public  void   pointcut(){}
+    public  void   test(){}
 
 
 
     //通知: 5中类型
 
-    @Before("pointcut()")
+    @Before("test()")
     public   void   before(){
         System.out.println("===============before======");
     }
 
-    @After("pointcut()")
+    @After("test()")
     public   void   after(){
         System.out.println("===============after======");
     }
+
 
 }
