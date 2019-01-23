@@ -1,14 +1,16 @@
 package com.neuedu.aspect;
 
+import com.neuedu.json.ObjectMapperApi;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
  * 日志服务切面类
  * */
-@Component
-@Aspect
+/*@Component
+@Aspect*/
 public class LogAspect {
 
     //定义切入点
@@ -26,7 +28,7 @@ public class LogAspect {
      *  around
      *
      * */
-   @Before("pointcut()")
+  /* @Before("pointcut()")
     public   void   before(){
         System.out.println("===============before======");
     }
@@ -43,14 +45,17 @@ public class LogAspect {
     @AfterReturning("pointcut()")
     public   void   AfterReturning(){
         System.out.println("===============AfterReturning======");
-    }
+    }*/
 
-   /* @Around("pointcut()")
+  @Autowired
+  ObjectMapperApi api;
+    @Around("pointcut()")
      public  Object arround(ProceedingJoinPoint proceedingJoinPoint){
 
         Object o=null;
         try {
             System.out.println("=====arround===before=====");
+
             //执行切入点匹配的方法
             o=proceedingJoinPoint.proceed();
             System.out.println("=====arround===after=====");
@@ -61,7 +66,7 @@ public class LogAspect {
         System.out.println("=====arround===afterreturning=====");
 
         return o;
-    }*/
+    }
 
 
 

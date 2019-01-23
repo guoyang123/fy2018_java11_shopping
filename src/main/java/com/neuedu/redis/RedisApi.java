@@ -31,8 +31,6 @@ public class RedisApi {
                jedisPool.returnResource(jedis);
            }
         }
-
-
         return result;
     }
 

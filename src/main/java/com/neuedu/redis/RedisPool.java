@@ -18,10 +18,7 @@ public class RedisPool {
 
     @Bean
     public JedisPool jedisPool(){
-
-
         JedisPoolConfig jedisPoolConfig=new JedisPoolConfig();
-
         jedisPoolConfig.setMaxTotal(redisProperties.getMaxTotal());
         jedisPoolConfig.setMaxIdle(redisProperties.getMaxIdle());
         jedisPoolConfig.setMinIdle(redisProperties.getMinIdle());
@@ -29,11 +26,8 @@ public class RedisPool {
         jedisPoolConfig.setTestOnReturn(redisProperties.isTestReturn());
        //当连接池中的连接消耗完毕，true:等待连接 false:抛出异常
         jedisPoolConfig.setBlockWhenExhausted(true);
-
-
         return new JedisPool(jedisPoolConfig, redisProperties.getRedisIp(), redisProperties.getRedisPort(), 2000, redisProperties.getRedisPassword(),
         0);
-
     }
 
 
